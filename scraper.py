@@ -15,6 +15,7 @@ def run_scrape_city(city='New York', range=1): #default is ny and 1 org
         capture_output= True,
         text=True,
         env=env
+     #   shell = True
         )
     # print("---------------")
     # print("STDOUT:")
@@ -23,6 +24,7 @@ def run_scrape_city(city='New York', range=1): #default is ny and 1 org
     #     print("STDERR:")
     #     print(result.stderr)
 
+   
     return 0
 
 
@@ -35,6 +37,7 @@ def run_scrape_single(org_name='THROW ERROR'):
         capture_output= True,
         text=True,
         env=env
+      #  shell = True
         )
     # print("---------------")
     # print("STDOUT:")
@@ -42,6 +45,9 @@ def run_scrape_single(org_name='THROW ERROR'):
     # if result.stderr:
     #     print("STDERR:")
     #     print(result.stderr)
+
+    
+    
 
     return 0
 

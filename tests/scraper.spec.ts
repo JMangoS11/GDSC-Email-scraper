@@ -25,7 +25,7 @@ test('scrape single', async ({page}) => {
 
   
 
-  data = 'Organization Name: ' + await name.nth(0).innerText() + ' : ';
+  data = 'Organization Name: ' + await name.nth(0).innerText() + ' \n';
   link = await org.nth(0).locator('a').first().getAttribute('href');
   if(link) {
     data += await run_scrape(page, base+link);
@@ -79,7 +79,7 @@ test('scrape city', async ({page}) => {
     await page.goto(city_page);
     await page.waitForLoadState('networkidle');
 
-    data = 'Organization Name: ' + await name.nth(i).innerText() + ' : ';
+    data = 'Organization Name: ' + await name.nth(i).innerText() + ' \n';
     link = await org.nth(i).locator('a').first().getAttribute('href');
     if(link) {
       data += await run_scrape(page, base+link);
@@ -132,8 +132,10 @@ async function run_scrape(page: Page, link: string) {
         const nestedChild = child.locator('>*').nth(j);
         data += await nestedChild.innerText() + ' ';
       }
+      data += '\n';
       
     }
+    
   }
 
   return data;
