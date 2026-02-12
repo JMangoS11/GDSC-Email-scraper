@@ -11,7 +11,7 @@ def run_scrape_city(city='New York', range=1): #default is ny and 1 org
     env['RANGE'] = str(range)
     
     result = subprocess.run(
-        ['npx', 'playwright', 'test', 'example.spec.ts', '--project=chromium', '--grep', 'scrape city'],
+        ['npx', 'playwright', 'test', 'scraper.spec.ts', '--project=chromium', '--grep', 'scrape city'],
         capture_output= True,
         text=True,
         env=env
@@ -31,7 +31,7 @@ def run_scrape_single(org_name='THROW ERROR'):
     env['ORG_NAME'] = org_name
     
     result = subprocess.run(
-        ['npx', 'playwright', 'test', 'example.spec.ts', '--project=chromium', '--grep', 'scrape single'],
+        ['npx', 'playwright', 'test', 'scraper.spec.ts', '--project=chromium', '--grep', 'scrape single'],
         capture_output= True,
         text=True,
         env=env
