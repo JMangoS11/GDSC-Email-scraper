@@ -98,7 +98,7 @@ test('scrape city', async ({page}) => {
 
 test('TEST', async ({page}) => {
 
-  console.log("AHDKJSDJASKDJKDSN");
+  console.log("uy");
 
 });
 
