@@ -1,0 +1,69 @@
+import { test, expect } from '@playwright/test';
+
+
+
+test('scrape city', async ({page}) => {
+  const city = process.env.CITY || 'New York';
+  const range = process.env.RANGE || 1;
+  const base = 'https://greatnonprofits.org';
+  var data = '';
+
+  
+
+  await page.goto(base);
+  await page.getByPlaceholder('Search by Nonprofit Name, City or State').click();
+  await page.getByPlaceholder('Search by Nonprofit Name, City or State').fill(city);
+  await page.getByPlaceholder('Search by Nonprofit Name, City or State').press('Enter');
+  
+  await page.waitForLoadState('networkidle');
+  const org = page.locator('.sc-fantwC .sc-irPVuy');
+
+  //get org name
+  const name = page.locator('.sc-fantwC .sc-hGNhLO');
+  data += 'Organization Name: ' + await name.nth(2).innerText() + ' : ';
+
+  
+  const link = await org.nth(2).locator('a').first().getAttribute('href');
+
+  
+
+
+  await page.goto(base+link);
+  await page.waitForLoadState('networkidle');
+  
+  const master_div = page.locator('.sc-jrVwZP');
+  // Get the count of direct child elements
+  const childCount = await master_div.locator('>*').count();
+  //console.log('Total child elements:', childCount);
+  
+  var child = master_div;
+  for(var i = 0; i < childCount; i++) {
+    child = master_div.locator('>*').nth(i);
+    
+    const c = await child.locator('>*').count();
+    
+    if(c == 0) {
+      data += await child.innerText() + ' ';
+
+    } else {
+     
+      for(var j = 0; j < c; j++) {
+        const nestedChild = child.locator('>*').nth(j);
+        data += await nestedChild.innerText() + ' ';
+      }
+      
+    }
+  }
+  console.log(data);
+
+});
+
+
+
+test('TEST', async ({page}) => {
+
+  console.log("AHDKJSDJASKDJKDSN");
+
+});
+
+
